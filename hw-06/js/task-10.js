@@ -15,7 +15,7 @@ deleteBtnbox.addEventListener('click', () => {
 
 
 function createBoxes(amount) {
-  const baseSize = 30; 
+  let baseSize = 30; 
   const collection = [];
 
   for (let i = 0; i < amount; i += 1) {
