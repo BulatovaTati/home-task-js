@@ -20,14 +20,15 @@ function createBoxes(amount) {
 
   for (let i = 0; i < amount; i += 1) {
     baseSize += 10 * i;
-    console.log(baseSize);
 
     const newBox = document.createElement('div');
     newBox.style.backgroundColor = getRandomHexColor();
-    newBox.style.height = baseSize + 'px';
-    newBox.style.width = baseSize + 'px';
-    newBox.style.margin = '10px';
- 
+    // newBox.style.height = baseSize + 'px';
+    // newBox.style.width = baseSize + 'px';
+    // newBox.style.margin = '10px';
+    newBox.style.cssText = ` background-color: ${getRandomHexColor()}; 
+    height: ${baseSize + 'px'}; width: ${baseSize + 'px'}; margin: 10px;`;
+
     collection.push(newBox);
   }
   return collection;
