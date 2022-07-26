@@ -20,7 +20,7 @@ const elements = images.map(createItem);
 
 function createItem({ url, alt }) {
   const element = `<li class="item" style="list-style: none">
-  <img src="${url}" alt="${alt}" width="320" /></li>`;
+  <img src="${url}" alt="${alt}" width="360" /></li>`;
   
   findListRef.insertAdjacentHTML("beforeend", element);
   return element;
