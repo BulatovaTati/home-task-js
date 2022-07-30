@@ -5,6 +5,7 @@ const box = document.querySelector(".gallery");
 box.addEventListener("click", onBoxClick);
 galleryItems.map(createItems).join("");
 
+// Markup
 function createItems({ preview, original, description }) {
   return box.insertAdjacentHTML(
     "beforeend",
@@ -30,8 +31,7 @@ function onBoxClick(evt) {
   instance.element().querySelector("img").src = evt.target.dataset.source;
   instance.show();
 }
-
-// 4
+//library
 const instance = basicLightbox.create(`<img class="modal__image" src="" />`, {
   onShow: (instance) => {
     window.addEventListener("keydown", onEscClick);
@@ -41,6 +41,7 @@ const instance = basicLightbox.create(`<img class="modal__image" src="" />`, {
   },
 });
 
+// closing/pressing
 function onEscClick(evt) {
   if (evt.key === "Escape") {
     instance.close();
