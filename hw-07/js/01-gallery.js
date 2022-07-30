@@ -3,6 +3,7 @@ import { galleryItems } from "./gallery-items.js";
 const box = document.querySelector(".gallery");
 
 box.addEventListener("click", onBoxClick);
+
 galleryItems.map(createItems).join("");
 
 // Markup
