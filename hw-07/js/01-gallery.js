@@ -32,7 +32,7 @@ function onBoxClick(evt) {
 }
 
 // 4
-const instance = basicLightbox.create(`<img class="modal__image" src=""/>`, {
+const instance = basicLightbox.create(`<img class="modal__image" src="" />`, {
   onShow: (instance) => {
     window.addEventListener("keydown", onEscClick);
   },
