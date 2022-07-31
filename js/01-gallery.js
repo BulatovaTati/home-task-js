@@ -33,19 +33,21 @@ function onBoxClick(evt) {
   instance.show();
 }
 //library
-const instance = basicLightbox.create(`<img class="modal__image" src="" />`, {
-  onShow: (instance) => {
-    window.addEventListener("keydown", onEscClick);
-  },
-  onClose: (instance) => {
-    window.removeEventListener("keydown", onEscClick);
-  },
-});
+const instance = basicLightbox.create(
+  `<img class="modal__image" src="" alt="" />`,
+  {
+    onShow: (instance) => {
+      window.addEventListener("keydown", onEscClick);
+    },
+    onClose: (instance) => {
+      window.removeEventListener("keydown", onEscClick);
+    },
+  }
+);
 
 // closing/pressing
 function onEscClick(evt) {
   if (evt.key === "Escape") {
     instance.close();
-    return;
   }
 }
