@@ -28,7 +28,7 @@ function onFormData(evt) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
-(function popularTextarea() {
+(function dataValues() {
   try {
     refs.input.value = formData.email;
     refs.textarea.value = formData.message;

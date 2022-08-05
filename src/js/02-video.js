@@ -1,22 +1,20 @@
 import Player from '@vimeo/player';
 import Throttle from 'lodash.throttle';
+const STORAGE_KEY = 'videoplayer-current-time';
 
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
-console.log('player: ', player);
 
-player.on('timeupdate', Throttle(onPlayVideo, 1000));
+player.on('timeupdate', Throttle(onVideoPlay, 1000));
 
-function onPlayVideo({ seconds, percent, duration }) {
-  localStorage.setItem('videoplayer-current-time', seconds);
-  console.log(percent, duration);
+function onVideoPlay({ seconds, percent, duration }) {
+  localStorage.setItem(STORAGE_KEY, seconds);
+  // console.log(percent, duration);
 }
 
-player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+player.setCurrentTime(localStorage.getItem(STORAGE_KEY));
 
 // ### playing
-
-// Triggered when the video starts playing.
 
 // ```js
 // {
