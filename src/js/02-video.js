@@ -8,8 +8,13 @@ const player = new Player(iframe);
 player.on('timeupdate', Throttle(onVideoPlay, 1000));
 
 function onVideoPlay({ seconds, percent, duration }) {
-  localStorage.setItem(STORAGE_KEY, seconds);
-  // console.log(percent, duration);
+  try {
+    localStorage.setItem(STORAGE_KEY, seconds);
+  } catch (error) {
+    console.log(error.name);
+    console.log(error.message);
+    console.log(error.value);
+  }
 }
 
 try {
