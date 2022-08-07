@@ -12,14 +12,8 @@ function onVideoPlay({ seconds, percent, duration }) {
   // console.log(percent, duration);
 }
 
-player.setCurrentTime(localStorage.getItem(STORAGE_KEY));
-
-// ### playing
-
-// ```js
-// {
-//     duration: 61.857
-//     percent: 0
-//     seconds: 0
-// }
-// ```
+try {
+  player.setCurrentTime(localStorage.getItem(STORAGE_KEY));
+} catch (error) {
+  console.log(error, 'error');
+}
