@@ -15,6 +15,11 @@ const formData = {
 refs.form.addEventListener('input', Throttle(onFormData, 500));
 refs.form.addEventListener('submit', onSubmitForm);
 
+function onFormData(evt) {
+  formData[evt.target.name] = evt.target.value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+}
+
 function onSubmitForm(evt) {
   console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
 
@@ -23,16 +28,11 @@ function onSubmitForm(evt) {
   localStorage.removeItem(STORAGE_KEY);
 }
 
-function onFormData(evt) {
-  formData[evt.target.name] = evt.target.value;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-}
+(function savedLocalDataOnValue() {
+  const parsedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-(function dataValues() {
-  try {
-    refs.input.value = formData.email;
-    refs.textarea.value = formData.message;
-  } catch (error) {
-    console.log('Error formData ', formData);
+  if (parsedData) {
+    refs.input.value = parsedData.email;
+    refs.textarea.value = parsedData.message;
   }
-});
+})();
