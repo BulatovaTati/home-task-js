@@ -3,24 +3,26 @@ const STORAGE_KEY = 'feedback-form-state';
 
 const form = document.querySelector('form');
 
-const formData = {};
+form.addEventListener('submit', evt => {
+  evt.preventDefault();
+
+  const formData = new FormData(form);
+  formData.forEach((name, value) => console.log(value, '-', name));
+
+  evt.currentTarget.reset();
+  localStorage.removeItem(STORAGE_KEY);
+});
 
 form.addEventListener(
   'input',
   Throttle(evt => {
+    let formData = localStorage.getItem(STORAGE_KEY);
+    formData = formData ? JSON.parse(formData) : {};
+
     formData[evt.target.name] = evt.target.value;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   }, 500)
 );
-
-form.addEventListener('submit', evt => {
-  evt.preventDefault();
-  const formData = new FormData(form);
-
-  formData.forEach((value, name) => console.log(value, name));
-  evt.currentTarget.reset();
-  localStorage.removeItem(STORAGE_KEY);
-});
 
 (function initForm() {
   let parsedData = localStorage.getItem(STORAGE_KEY);
@@ -29,14 +31,45 @@ form.addEventListener('submit', evt => {
     parsedData = JSON.parse(parsedData);
 
     Object.entries(parsedData).forEach(([name, value]) => {
-      formData[name] = value;
       form.elements[name].value = value;
     });
   }
 })();
 
-// another way to solve
+// another ways to solve
+// const formData = {};
 
+// form.addEventListener(
+//   'input',
+//   Throttle(evt => {
+//     formData[evt.target.name] = evt.target.value;
+//     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+//   }, 500)
+// );
+
+// form.addEventListener('submit', evt => {
+//   evt.preventDefault();
+//   const formData = new FormData(form);
+
+//   formData.forEach((value, name) => console.log(value, name));
+//   evt.currentTarget.reset();
+//   localStorage.removeItem(STORAGE_KEY);
+// });
+
+// (function initForm() {
+//   let parsedData = localStorage.getItem(STORAGE_KEY);
+
+//   if (parsedData) {
+//     parsedData = JSON.parse(parsedData);
+
+//     Object.entries(parsedData).forEach(([name, value]) => {
+//       formData[name] = value;
+//       form.elements[name].value = value;
+//     });
+//   }
+// })();
+
+// .... OR
 // const formData = {
 //   email: '',
 //   message: '',
