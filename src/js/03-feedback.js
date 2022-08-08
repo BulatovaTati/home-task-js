@@ -6,9 +6,9 @@ const form = document.querySelector('form');
 form.addEventListener('submit', evt => {
   evt.preventDefault();
 
-  const formData = new FormData(form);
-  formData.forEach((name, value) => console.log(value, '-', name));
-
+  // const formData = new FormData(form);
+  // formData.forEach((name, value) => console.log(value, '-', name));
+  console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
   evt.currentTarget.reset();
   localStorage.removeItem(STORAGE_KEY);
 });
