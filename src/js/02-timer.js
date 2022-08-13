@@ -24,6 +24,8 @@ const options = {
       Notify.failure('Please choose a date in the future!');
       refs.button.setAttribute('disabled', 'true');
     } else {
+      refs.button.removeAttribute('disabled');
+      timer.start();
       Notify.success('Press START');
     }
   },
@@ -33,8 +35,9 @@ flatpickr(refs.input, options);
 
 // Timer
 const timer = {
-  intervalId: null,
+  timerId: null,
   isActive: false,
+  disable: refs.button.setAttribute('disabled', 'true'),
 
   start() {
     if (this.isActive) {
@@ -44,10 +47,10 @@ const timer = {
     const startTime = Date.now();
     this.isActive = true;
 
-    this.intervalId = setInterval(() => {
+    this.timerId = setInterval(() => {
       const currentTime = Date.now();
 
-      const delta = currentTime - startTime;
+      const delta = startTime - currentTime;
       const time = convertMs(delta);
       updateClockFace(time);
     }, 1000);
@@ -67,8 +70,12 @@ function updateClockFace(time) {
 }
 
 const addLeadingZero = value => {
-  return String(value).padStart(2, '0');
+  if (value < 10) {
+    return String(value).padStart(2, '0');
+  }
+  return value;
 };
+
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
