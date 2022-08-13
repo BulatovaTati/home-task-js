@@ -8,32 +8,75 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
+    <!-- <link rel="stylesheet" href="dist/notiflix-3.2.5.min.css" /> -->
+
     <link rel="stylesheet" href="css/common.css" />
+    <style>
+      body {
+        background-color: white;
+      }
+      input {
+        width: 200px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      button {
+        width: 50px;
+        background-color: orange;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .timer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        font-size: 48px;
+      }
+
+      .timer__item {
+        position: relative;
+        min-width: 60px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-bottom: 15px;
+        text-align: center;
+      }
+
+      .value:not(:last-child)::after {
+        content: ':';
+        position: absolute;
+        right: -15px;
+      }
+    </style>
   </head>
+
   <body>
     <p><a href="index.html">Go back</a></p>
+    <input type="text" id="datetime-picker" />
+    <button type="button" data-start>Start</button>
 
-    <!-- <input type="text" id="datetime-picker" />
-    <button type="button" data-start>Start</button> -->
-    <span></span>
-    <!-- <div class="timer">
+    <div class="timer">
       <div class="field">
-        <span class="value" data-days>00</span>
-        <span class="label">Days</span>
+        <span class="timer__item value" data-days>00</span>
+        <span class="timer__item label">Days</span>
       </div>
       <div class="field">
-        <span class="value" data-hours>00</span>
-        <span class="label">Hours</span>
+        <span class="timer__item value" data-hours>00</span>
+        <span class="timer__item label">Hours</span>
       </div>
       <div class="field">
-        <span class="value" data-minutes>00</span>
-        <span class="label">Minutes</span>
+        <span class="timer__item value" data-minutes>00</span>
+        <span class="timer__item label">Minutes</span>
       </div>
       <div class="field">
-        <span class="value" data-seconds>00</span>
-        <span class="label">Seconds</span>
+        <span class="timer__item value" data-seconds>00</span>
+        <span class="timer__item label">Seconds</span>
       </div>
-    </div> -->
+    </div>
 
     <script src="js/02-timer.js" type="module"></script>
   </body>
