@@ -13,20 +13,23 @@ const refs = {
   button: document.querySelector('button'),
 };
 
+let selectedDate = null;
+
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+
   onClose(selectedDates) {
-    const selectedDate = selectedDates[0].getTime();
-    if (selectedDate < new Date()) {
+    selectedDate = selectedDates[0].getTime();
+
+    if (selectedDate < Date.now()) {
       Notify.failure('Please choose a date in the future!');
       refs.button.setAttribute('disabled', 'true');
     } else {
       refs.button.removeAttribute('disabled');
-      timer.start();
-      Notify.success('Press START');
+      Notify.success('You can press START');
     }
   },
 };
@@ -36,22 +39,15 @@ flatpickr(refs.input, options);
 // Timer
 const timer = {
   timerId: null,
-  isActive: false,
   disable: refs.button.setAttribute('disabled', 'true'),
 
   start() {
-    if (this.isActive) {
-      return;
-    }
-
-    const startTime = Date.now();
-    this.isActive = true;
-
     this.timerId = setInterval(() => {
-      const currentTime = Date.now();
+      const currentDate = Date.now();
 
-      const delta = startTime - currentTime;
+      const delta = selectedDate - currentDate;
       const time = convertMs(delta);
+
       updateClockFace(time);
     }, 1000);
   },
