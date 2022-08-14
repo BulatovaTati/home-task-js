@@ -39,7 +39,7 @@ flatpickr(refs.input, options);
 // Timer
 const timer = {
   timerId: null,
-  disable: refs.button.setAttribute('disabled', 'true'),
+  disable: (refs.button.disabled = true),
 
   start() {
     this.timerId = setInterval(() => {
@@ -54,7 +54,8 @@ const timer = {
 
 refs.button.addEventListener('click', () => {
   timer.start();
-  refs.button.setAttribute('disabled', 'true');
+  refs.button.disabled = true;
+  refs.input.disabled = true;
 });
 
 const addLeadingZero = value => {
