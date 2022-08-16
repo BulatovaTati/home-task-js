@@ -1,18 +1,21 @@
 const refs = {
   startBtn: document.querySelector('button[data-start'),
   stopBtn: document.querySelector('button[data-stop'),
+  resetBtn: document.querySelector('button[data-reset'),
   span: document.querySelector('span'),
-};
-
-const renderTimer = string => {
-  refs.span.innerText = string;
 };
 
 const millisecondsInSecond = 1000;
 const secondsInMinute = 60;
 const minutesInHour = 60;
 const hoursInDay = 24;
+
 let intervalId = null;
+let pause = true;
+
+const renderTimer = string => {
+  refs.span.innerText = string;
+};
 
 const start = () => {
   let initialDate = new Date();
@@ -45,14 +48,30 @@ const start = () => {
     const timerFormat = `${days}:${UIHours}:${UIMinutes}:${UISeconds}:${milliseconds}`;
 
     renderTimer(timerFormat);
+
     refs.startBtn.disabled = true;
+    refs.resetBtn.disabled = true;
+    console.log(timerFormat);
   }, 0);
 };
-const pause = () => {
-  clearTimeout(intervalId);
+
+const stop = () => {
+  clearInterval(intervalId);
   refs.startBtn.disabled = false;
+  refs.resetBtn.disabled = false;
 };
 
-refs.startBtn.addEventListener('click', start);
+const reset = () => {
+  refs.span.innerText = '';
+};
 
-refs.stopBtn.addEventListener('click', pause);
+// const startStop = () => {
+//   if (intervalId !== null) {
+//     start();
+//   }
+// };
+refs.startBtn.addEventListener('click', start);
+// refs.startBtn.addEventListener('click', startStop);
+
+refs.stopBtn.addEventListener('click', stop);
+refs.resetBtn.addEventListener('click', reset);

@@ -7,17 +7,20 @@ let intervalId = null;
 
 refs.startBtn.addEventListener('click', onButtonStart);
 refs.stopBtn.addEventListener('click', onButtonStop);
+refs.stopBtn.disabled = true;
 
 function onButtonStart() {
   intervalId = setInterval(() => {
     refs.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
   refs.startBtn.disabled = true;
+  refs.stopBtn.disabled = false;
 }
 
 function onButtonStop() {
   clearInterval(intervalId);
   refs.startBtn.disabled = false;
+  refs.stopBtn.disabled = true;
 }
 
 function getRandomHexColor() {

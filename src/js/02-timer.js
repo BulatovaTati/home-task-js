@@ -46,6 +46,9 @@ const timer = {
       const currentDate = Date.now();
 
       const delta = selectedDate - currentDate;
+      if (delta <= 0) {
+        return;
+      }
       const time = convertMs(delta);
       updateClockFace(time);
     }, 1000);
