@@ -11,7 +11,6 @@ const minutesInHour = 60;
 const hoursInDay = 24;
 
 let intervalId = null;
-let pause = true;
 
 const renderTimer = string => {
   refs.span.innerText = string;
@@ -51,9 +50,10 @@ const start = () => {
 
     refs.startBtn.disabled = true;
     refs.resetBtn.disabled = true;
-    console.log(timerFormat);
   }, 0);
 };
+
+const startStop = () => {};
 
 const stop = () => {
   clearInterval(intervalId);
@@ -65,13 +65,8 @@ const reset = () => {
   refs.span.innerText = '';
 };
 
-// const startStop = () => {
-//   if (intervalId !== null) {
-//     start();
-//   }
-// };
 refs.startBtn.addEventListener('click', start);
-// refs.startBtn.addEventListener('click', startStop);
+refs.startBtn.addEventListener('click', startStop);
 
 refs.stopBtn.addEventListener('click', stop);
 refs.resetBtn.addEventListener('click', reset);
