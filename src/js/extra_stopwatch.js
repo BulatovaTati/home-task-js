@@ -11,13 +11,15 @@ const minutesInHour = 60;
 const hoursInDay = 24;
 
 let intervalId = null;
+let delta;
+let initialDate;
 
 const renderTimer = string => {
   refs.span.innerText = string;
 };
 
 const start = () => {
-  let initialDate = new Date();
+  initialDate = delta ?? new Date();
 
   intervalId = setInterval(() => {
     const delta = new Date() - initialDate;
@@ -45,6 +47,12 @@ const start = () => {
     const UIHours = `${hours}`.length === 2 ? hours : `0${hours}`;
 
     const timerFormat = `${days}:${UIHours}:${UIMinutes}:${UISeconds}:${milliseconds}`;
+
+    if (intervalId !== null) {
+      let pauseTime = delta + Date.now();
+      renderTimer(pauseTime);
+      console.log('pauseTime: ', pauseTime);
+    }
 
     renderTimer(timerFormat);
 
