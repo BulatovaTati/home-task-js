@@ -4,7 +4,7 @@ const { input, list, country_info } = refs;
 import Countries from './js/fetchCountries';
 import markuplist from './templates/country-list-markup.hbs';
 import markupInfo from './templates/country-info-markup.hbs';
-let debounce = require('lodash.debounce');
+import debounce from 'lodash.debounce';
 
 const DEBOUNCE_DELAY = 300;
 const newListCountries = new Countries();
@@ -15,7 +15,9 @@ input.addEventListener('input', debounce(enterValue, DEBOUNCE_DELAY));
 function enterValue(evt) {
   evt.preventDefault();
 
-  if (input.value) {
+  newListCountries.country = e.currentTarget.elements.country.value;
+
+  if (newListCountries.searchCountry) {
     const name = input.value.trim();
     return newListCountries
       .fetchCountries(name)

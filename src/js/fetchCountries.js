@@ -39,6 +39,10 @@ export default class Countries {
   incrementSearch() {
     this.page += 1;
   }
+
+  resetPage() {
+    this.page = 1;
+  }
   get country() {
     return this.searchCountry;
   }
