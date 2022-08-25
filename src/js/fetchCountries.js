@@ -1,53 +1,72 @@
-const BASE_URL = 'https://restcountries.com/v3.1/name/';
-const properties = 'fields=name,capital,population,flags,languages';
+// const BASE_URL = 'https://restcountries.com/v3.1/name/';
+// const properties = 'fields=name,capital,population,flags,languages';
+// import { refs } from './refs';
+// const { input, list, country_info } = refs;
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// export default class Countries {
+//   constructor() {
+//     this.searchCountry = '';
+//   }
 
-export default class Countries {
-  constructor() {
-    this.searchCountry = '';
-    this.page = 1;
-    this.info = '';
-  }
+//   fetchCountries(name) {
+//     return fetch(`${BASE_URL}${this.searchCountry}?${properties}`)
+//       .then(result => {
+//         if (!result.ok) {
+//           Notify.failure('Oops, there is no country with that name');
 
-  fetchCountries(name) {
-    return fetch(`${BASE_URL}${this.searchCountry}?${properties}`)
-      .then(result => {
-        if (!result.ok) {
-          Notify.failure('Oops, there is no country with that name');
-          list.innerHTML = '';
-          country_info.innerHTML = '';
+//           throw new Error(result.status);
+//         }
 
-          throw new Error(result.status);
-        }
+//         return result.json();
+//       })
+//       .then(data => {
+//         if (data.length > 10) {
+//           Notify.info(
+//             'Too many matches found. Please enter a more specific name.'
+//           );
+//           incrementSearch();
+//         }
+//       })
+//       .catch(error => console.log(error));
+//   }
 
-        return result.json();
-      })
-      .then(data => {
-        if (data.length > 10) {
-          Notify.info(
-            'Too many matches found. Please enter a more specific name.'
-          );
+//   resetMarkup() {
+//     list.innerHTML = '';
+//     country_info.innerHTML = '';
+//   }
 
-          incrementSearch();
-          this.info = data;
-          return this.info;
-        }
-      })
-      .catch(error => console.log(error));
-  }
-  incrementSearch() {
-    this.page += 1;
-  }
+//   get country() {
+//     return this.searchCountry;
+//   }
 
-  resetPage() {
-    this.page = 1;
-  }
-  get country() {
-    return this.searchCountry;
-  }
+//   set country(newName) {
+//     this.searchCountry = newName;
+//   }
+// }
 
-  set country(newName) {
-    this.searchCountry = newName;
-  }
-}
+// export function fetchCountries(name) {
+//   return fetch(
+//     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
+//   ).then(response => {
+//     if (!response.ok) {
+//       console.log('jjjj', response);
+//       throw new Error(response.status);
+//     }
+//     return response.json();
+//   });
+// }
+const BASE_URL = 'https://restcountries.com/v3.1/name';
+
+const fetchCountries = name => {
+  return fetch(
+    `${BASE_URL}/${name}?fields=name,capital,population,flags,languages`
+  ).then(response => {
+    if (response.status === 404) {
+      return Promise.reject(new Error());
+    }
+    return response.json();
+  });
+};
+
+export { fetchCountries };
