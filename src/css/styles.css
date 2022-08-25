@@ -39,3 +39,7 @@ ul {
 .country-list__item:not(:last-child) {
   margin-right: 20px;
 }
+
+.country-info {
+  text-align: center;
+}
