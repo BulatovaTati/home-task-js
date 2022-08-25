@@ -28,6 +28,7 @@ function onSearchCountry(evt) {
 function showCountries(country) {
   if (country.length > MAX_COUNT) {
     newListCountries.resetMarkup(list, country_info);
+
     return Notify.info(
       'Too many matches found. Please enter a more specific name.',
       {

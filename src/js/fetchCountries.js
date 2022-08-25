@@ -12,12 +12,12 @@ export default class Countries {
     );
   }
 
-  responseFetch(result) {
-    if (!result.ok) {
-      throw new Error(result.status);
+  responseFetch(res) {
+    if (!res.ok) {
+      throw new Error(res.status);
     }
 
-    return result.json();
+    return res.json();
   }
 
   resetMarkup(list, country_info) {
