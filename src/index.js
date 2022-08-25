@@ -2,12 +2,14 @@
 // import { refs } from './js/refs';
 // const { input, list, country_info } = refs;
 
-// import Countries from './js/fetchCountries';
-// import markuplist from './js/country-list-markup';
-// import markupInfo from './js/country-info-markup';
+// import { fetchCountries } from './js/fetchCountries';
+// import { addToCountryInfo, addToCountryList } from './js/markup';
+
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // import debounce from 'lodash.debounce';
-// let name = '';
+
 // const DEBOUNCE_DELAY = 300;
+// const MAX_COUNT = 10;
 // const newListCountries = new Countries();
 // console.log('newListCountries: ', newListCountries);
 
@@ -36,11 +38,10 @@ import './css/styles.css';
 import { refs } from './js/refs';
 const { input, list, country_info } = refs;
 
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 import { fetchCountries } from './js/fetchCountries';
-// import addToCountryList from './js/country-list-markup';
-// import addToCountryInfo from './js/country-info-markup';
+import { addToCountryInfo, addToCountryList } from './js/country-markup';
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import debounce from 'lodash.debounce';
 
 const DEBOUNCE_DELAY = 300;
@@ -50,36 +51,25 @@ input.addEventListener('input', debounce(onSearchCountry, DEBOUNCE_DELAY));
 
 function onSearchCountry(evt) {
   const name = evt.target.value.trim();
-  console.log('name: ', name);
 
   if (!name) {
-    list.innerHTML = '';
-    country_info.innerHTML = '';
+    clearInnerHtml();
     return;
   }
 
   fetchCountries(name)
     .then(res => {
-      console.log('res: ', res);
       if (res.length > MAX_COUNT) {
-        Notify.info(
+        return Notify.info(
           'Too many matches found. Please enter a more specific name.',
           {
             timeout: 3000,
           }
         );
-        return;
       }
       showCountries(res);
     })
-    .catch(error => {
-      list.innerHTML = '';
-      country_info.innerHTML = '';
-
-      Notify.failure('Oops, there is no country with that name', {
-        timeout: 3000,
-      });
-    });
+    .catch(error);
 }
 
 function showCountries(country) {
@@ -95,60 +85,16 @@ function showCountries(country) {
     list.innerHTML = markup;
   }
 }
-// function error() {
-//   list.innerHTML = '';
-//   country_info.innerHTML = '';
 
-//   Notify.failure('Oops, there is no country with that name', {
-//     timeout: 3000,
-//   });
-// }
-
-function addToCountryList(countries) {
-  return countries
-    .map(
-      ({ name, flags }) =>
-        `<li class="country-list__item">
-        <img
-          class="country-list__flag"
-          src="${flags.svg}"
-          alt="this is flag those country"
-          width = 200
-          />
-        <h2 class="country-list__title">${name.official}</h2>
-      </li>`
-    )
-    .join('');
+function clearInnerHtml() {
+  list.innerHTML = '';
+  country_info.innerHTML = '';
 }
 
-function addToCountryInfo(country) {
-  return country.map(
-    ({ name, flags, capital, population, languages }) =>
-      `
-    <div class="flag__container">
-        <img
-          class="flag__img"
-          src="${flags.svg}"
-          alt="this is flag those country"
-          width = 200
-        />
-        <h1>${name.official}</h1>
-      </div>
-      <ul class="country-info__desc">
-        <li class="country-info__item">
-          Capital:
-          <span>${capital}</span>
-        </li>
-        <li class="country-info__item">
-          Population:
-          <span>${population}</span
-          >
-        </li>
-        <li class="country-info__item">
-          Languages:
-          <span>${Object.values(languages)}</span
-          >
-        </li>
-      </ul>`
-  );
+function error() {
+  clearInnerHtml();
+
+  Notify.failure('Oops, there is no country with that name', {
+    timeout: 3000,
+  });
 }
