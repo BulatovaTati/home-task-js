@@ -34,12 +34,17 @@ ul {
 
 .country-list__item {
   width: 300px;
-}
-
-.country-list__item:not(:last-child) {
   margin-right: 20px;
+  margin-bottom: 40px;
+  background-color: rgba(241, 241, 114, 0.5);
 }
 
 .country-info {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.country-info__desc {
+  padding: 50px;
+  background-color: rgba(241, 241, 114, 0.5);
 }

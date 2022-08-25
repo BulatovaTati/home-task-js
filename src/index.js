@@ -50,7 +50,7 @@ function showCountries(country) {
 function errorFetch() {
   newListCountries.resetMarkup(list, country_info);
 
-  Notify.failure('Oops, there is no country with that name', {
+  Notify.failure('Oops, there is no country with that name.', {
     timeout: 1500,
   });
 }
