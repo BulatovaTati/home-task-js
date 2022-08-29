@@ -1,4 +1,7 @@
-export function markupGallery() {
+import { refs } from './refs';
+const { gallery, form, readMore } = refs;
+
+function markupGallery() {
   return map(
     ({
       largeImageURL,
@@ -36,3 +39,13 @@ export function markupGallery() {
     }
   ).join('');
 }
+
+function onDomMarkup(data) {
+  gallery.insertAdjacentHTML('beforeend', markupGallery(data));
+}
+
+function resetDomMarkup() {
+  gallery.innerHTML = '';
+}
+
+export { markupGallery, onDomMarkup, resetDomMarkup };
