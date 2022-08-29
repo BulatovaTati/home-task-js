@@ -1,5 +1,5 @@
 import { refs } from './refs';
-const { gallery, form, readMore } = refs;
+const { gallery } = refs;
 
 function markupGallery() {
   return map(
