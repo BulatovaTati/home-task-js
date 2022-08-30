@@ -28,6 +28,7 @@ form.addEventListener('submit', onSubmitForm);
 
 function onSubmitForm(evt) {
   evt.preventDefault();
+
   resetDomMarkup();
   NewGallery.query = evt.currentTarget.searchQuery.value.trim();
 
@@ -36,21 +37,23 @@ function onSubmitForm(evt) {
   evt.target.reset();
 }
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 async function apiRequest() {
   try {
     const res = await NewGallery.fetchPictures();
     console.log('res: ', res);
 
-    const totalHits = Math.ceil(res.totalHits / NewGallery.per_page);
-
     const resFin = await res.hits;
+    console.log('resFin: ', resFin);
 
     if (resFin.length === 0) {
       return onErrorSearch();
     }
     gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
+    Notify.success(`Hooray! We found ${res.totalHits} images.`);
 
-    if (totalHits === NewGallery.page - 1) {
+    if (res.totalHits === NewGallery.page - 1) {
       return onEndSearchPic();
     }
   } catch (error) {

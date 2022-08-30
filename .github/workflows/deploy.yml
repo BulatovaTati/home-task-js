@@ -2,7 +2,7 @@ name: Build and deploy to GitHub Pages
 
 on:
   push:
-    branches: [goit-js-hw-10]
+    branches: [goit-js-hw-11]
 
 jobs:
   build-and-deploy:
