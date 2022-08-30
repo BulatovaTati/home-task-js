@@ -1,23 +1,24 @@
 import { refs } from './refs';
 const { gallery } = refs;
 
-function markupGallery() {
-  return map(
-    ({
-      largeImageURL,
-      tags,
-      webformatURL,
-      likes,
-      views,
-      comments,
-      downloads,
-    }) => {
-      return `
+function markupGallery(data) {
+  return data
+    .map(
+      ({
+        largeImageURL,
+        tags,
+        webformatURL,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => {
+        return `
 <div class="thumb">
     <a href="${largeImageURL}"
             class="gallery__item" >
     <div class="photo-card">
-            <img src="${webformatURL}" alt="${tags}" loading="lazy"
+            <img src="${webformatURL}" alt="${tags}"  loading="lazy"
             class="gallery__image"/>
         <div class="info">
             <p class="info-item">
@@ -36,16 +37,13 @@ function markupGallery() {
     </div>
     </a>
 </div>`;
-    }
-  ).join('');
-}
-
-function onDomMarkup(data) {
-  gallery.insertAdjacentHTML('beforeend', markupGallery(data));
+      }
+    )
+    .join('');
 }
 
 function resetDomMarkup() {
   gallery.innerHTML = '';
 }
 
-export { markupGallery, onDomMarkup, resetDomMarkup };
+export { markupGallery, resetDomMarkup };

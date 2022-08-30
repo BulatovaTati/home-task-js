@@ -14,9 +14,12 @@ export default class Gallery {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.totalHits = 0;
+    this.per_page = 40;
+    // this.totalHits = 0;
+  }
 
-    this.paramsW = {
+  async fetchPictures() {
+    const res = await axios.get(BASE_URL, {
       params: {
         key: `${API_KEY}`,
         q: this.searchQuery,
@@ -24,26 +27,17 @@ export default class Gallery {
         orientation: 'horizontal',
         safesearch: true,
         page: this.page,
-        per_page: 40,
+        per_page: this.per_page,
       },
-    };
-  }
-
-  async fetchPictures() {
-    const res = await axios.get(BASE_URL, this.paramsW);
-    console.log('res: ', res);
-    const total = await res.data.total;
-    this.totalHits = total;
-
-    this.responseFetch(res);
-  }
-
-  responseFetch(res) {
-    if (res.ok) this.nextPage();
+    });
+    this.nextPage();
 
     return res.data;
   }
 
+  resetPage() {
+    this.page = 1;
+  }
   get query() {
     return this.searchQuery;
   }
