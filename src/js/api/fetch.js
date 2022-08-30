@@ -30,7 +30,6 @@ export default class Gallery {
         per_page: this.per_page,
       },
     });
-    this.nextPage();
 
     return res.data;
   }
@@ -46,15 +45,7 @@ export default class Gallery {
     this.searchQuery = newQuery;
   }
 
-  get currentPage() {
-    return this.page;
-  }
-
-  set currentPage(page) {
-    this.page = page;
-  }
-
-  nextPage() {
+  incrementPage() {
     this.page += 1;
   }
 }

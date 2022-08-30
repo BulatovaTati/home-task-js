@@ -12,5 +12,7 @@ function onEndSearchPic() {
 function onSuccessSearch(data) {
   Notify.success(`Hooray! We found ${data.totalHits} images.`);
 }
-
-export { onSuccessSearch, onEndSearchPic, onErrorSearch };
+function onInfoSearch() {
+  Notify.info(`Oops! Please try again `);
+}
+export { onSuccessSearch, onEndSearchPic, onErrorSearch, onInfoSearch };
