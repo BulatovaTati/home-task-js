@@ -48,6 +48,8 @@ async function apiRequest() {
 
     domMarkup(resFin);
     onSuccessSearch(res);
+    // пришлось мотать с первого рапроса
+    smoothScrolling();
     NewGallery.incrementPage();
     refreshSimplelightbox();
 
@@ -67,7 +69,8 @@ const onEntry = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && NewGallery.query !== '') {
       apiRequest();
-      smoothScrolling();
+      // Не работает(
+      // smoothScrolling();
     }
   });
 };
