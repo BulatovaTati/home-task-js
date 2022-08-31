@@ -30,7 +30,7 @@ function domMarkup(resFin) {
 
 function onSubmitForm(evt) {
   evt.preventDefault();
-  NewGallery.query = evt.currentTarget.searchQuery.value;
+  NewGallery.query = evt.currentTarget.searchQuery.value.trim();
 
   if (NewGallery.query === '') {
     return onInfoSearch();
