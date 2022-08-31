@@ -33,7 +33,6 @@ function onSubmitForm(evt) {
   NewGallery.resetPage();
   resetDomMarkup();
   apiRequest();
-  NewGallery.incrementPage();
   evt.target.reset();
 }
 
