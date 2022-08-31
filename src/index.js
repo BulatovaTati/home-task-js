@@ -5,11 +5,13 @@ import {
   onErrorSearch,
   onInfoSearch,
 } from './js/dom/notify';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 import './css/styles.scss';
 // Styles <<<<<<<=
 
 import { refs } from './js/dom/refs';
-const { form, gallery, readMore } = refs;
+const { form, gallery, readmore } = refs;
 
 import { markupGallery, resetDomMarkup } from './js/dom/markup';
 import Gallery from './js/api/fetch';
@@ -62,11 +64,7 @@ async function apiRequest() {
 const onEntry = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && NewGallery.query !== '') {
-      try {
-        dd();
-      } catch (error) {
-        console.log('FFF', error);
-      }
+      apiScroll();
     }
   });
 };
@@ -75,15 +73,17 @@ const observer = new IntersectionObserver(onEntry, {
   rootMargin: '100px',
 });
 
-observer.observe(readMore);
+observer.observe(readmore);
 
-async function dd() {
+async function apiScroll() {
   const res = await NewGallery.fetchPictures();
   const resFin = await res.hits;
 
   domMarkup(resFin);
   NewGallery.incrementPage();
+  refreshSimplelightbox();
   smoothScrolling();
+
   return resFin;
 }
 
