@@ -38,18 +38,12 @@ function onSubmitForm(evt) {
 async function apiRequest() {
   try {
     const res = await NewGallery.fetchPictures();
-
     const resFin = await res.hits;
-    console.log('resFin: ', resFin);
-
-    if (resFin.length === 0) {
-      return onErrorSearch();
-    }
 
     domMarkup(resFin);
     onSuccessSearch(res);
     // пришлось мотать с первого рапроса
-    smoothScrolling();
+    // smoothScrolling();
     NewGallery.incrementPage();
     refreshSimplelightbox();
 
@@ -64,13 +58,28 @@ async function apiRequest() {
 function domMarkup(resFin) {
   gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
 }
+async function dd() {
+  const res = await NewGallery.fetchPictures();
+  const resFin = await res.hits;
+  console.log('resFin: ', resFin);
 
+  if (resFin.length === 0) {
+    return onErrorSearch();
+  }
+
+  domMarkup(resFin);
+  NewGallery.incrementPage();
+  smoothScrolling();
+  return resFin;
+}
 const onEntry = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && NewGallery.query !== '') {
-      apiRequest();
-      // Не работает(
-      // smoothScrolling();
+      try {
+        dd();
+      } catch (error) {
+        console.log('FFF', error);
+      }
     }
   });
 };
