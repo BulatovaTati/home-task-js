@@ -10,7 +10,7 @@ import './css/styles.scss';
 // Styles <<<<<<<=
 
 import { refs } from './js/dom/refs';
-const { gallery, form } = refs;
+const { form } = refs;
 
 import { markupGallery, resetDomMarkup, domMarkup } from './js/dom/markup';
 import Gallery from './js/api/fetch';
@@ -49,19 +49,20 @@ async function apiRequest() {
       return onErrorSearch();
     }
     domMarkup(markupGallery, resFin);
-
     onSuccessSearch(res);
+
     refreshSimplelightbox();
 
     if (res.totalHits === NewGallery.page - 1) {
       return onEndSearchPic();
     }
   } catch (error) {
-    console.log(error);
+    console.log('Line 60', error);
   }
 }
 
 window.addEventListener('scroll', smoothScrollPage);
+
 async function smoothScrollPage() {
   if (
     document.documentElement.scrollHeight -
@@ -72,7 +73,7 @@ async function smoothScrollPage() {
     try {
       apiRequest();
     } catch (error) {
-      console.log(error);
+      console.log('Line 77', error);
     }
   }
 }

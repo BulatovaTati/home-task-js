@@ -15,7 +15,6 @@ export default class Gallery {
     this.searchQuery = '';
     this.page = 1;
     this.per_page = 40;
-    // this.totalHits = 0;
   }
 
   async fetchPictures() {
@@ -33,19 +32,23 @@ export default class Gallery {
 
     return res.data;
   }
+  incrementPage() {
+    this.page += 1;
+  }
+
+  decrementPage() {
+    this.page -= 1;
+  }
 
   resetPage() {
     this.page = 1;
   }
+
   get query() {
     return this.searchQuery;
   }
 
   set query(newQuery) {
     this.searchQuery = newQuery;
-  }
-
-  incrementPage() {
-    this.page += 1;
   }
 }
