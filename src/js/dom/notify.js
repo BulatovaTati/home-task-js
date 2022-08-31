@@ -13,6 +13,6 @@ function onSuccessSearch(data) {
   Notify.success(`Hooray! We found ${data.totalHits} images.`);
 }
 function onInfoSearch() {
-  Notify.info(`Oops! Please try again `);
+  Notify.warning(`Oops! Please try again `);
 }
 export { onSuccessSearch, onEndSearchPic, onErrorSearch, onInfoSearch };

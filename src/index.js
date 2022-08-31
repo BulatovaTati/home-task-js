@@ -15,12 +15,17 @@ const { form, gallery, readMore } = refs;
 import { markupGallery, resetDomMarkup } from './js/dom/markup';
 import Gallery from './js/api/fetch';
 import { smoothScrolling } from './js/dom/smoothScrolling';
+import arrow from './js/dom/arrow';
 //Imports <<<<<<=
 
 const NewGallery = new Gallery();
 // Class <<<<=
 
 form.addEventListener('submit', onSubmitForm);
+
+function domMarkup(resFin) {
+  gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
+}
 
 function onSubmitForm(evt) {
   evt.preventDefault();
@@ -42,8 +47,6 @@ async function apiRequest() {
 
     domMarkup(resFin);
     onSuccessSearch(res);
-    // пришлось мотать с первого рапроса
-    // smoothScrolling();
     NewGallery.incrementPage();
     refreshSimplelightbox();
 
@@ -55,23 +58,7 @@ async function apiRequest() {
   }
 }
 
-function domMarkup(resFin) {
-  gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
-}
-async function dd() {
-  const res = await NewGallery.fetchPictures();
-  const resFin = await res.hits;
-  console.log('resFin: ', resFin);
-
-  if (resFin.length === 0) {
-    return onErrorSearch();
-  }
-
-  domMarkup(resFin);
-  NewGallery.incrementPage();
-  smoothScrolling();
-  return resFin;
-}
+// scroll
 const onEntry = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && NewGallery.query !== '') {
@@ -87,7 +74,23 @@ const onEntry = entries => {
 const observer = new IntersectionObserver(onEntry, {
   rootMargin: '100px',
 });
+
 observer.observe(readMore);
+
+async function dd() {
+  const res = await NewGallery.fetchPictures();
+  const resFin = await res.hits;
+
+  if (resFin.length === 0) {
+    return onErrorSearch();
+  }
+
+  domMarkup(resFin);
+  NewGallery.incrementPage();
+
+  smoothScrolling();
+  return resFin;
+}
 
 // function onLoarmOre() {
 //   NewGallery.fetchPictures()

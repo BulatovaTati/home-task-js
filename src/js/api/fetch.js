@@ -1,14 +1,7 @@
-// import axios from 'axios';
-const axios = require('axios').default;
+import axios from 'axios';
+
 const API_KEY = '29527006-ad6e7c34d6702116665004a30';
 const BASE_URL = 'https://pixabay.com/api/';
-// axios.defaults.baseURL = 'https://pixabay.com/api';
-// axios.defaults.params = {
-//   key: API_KEY,
-//   image_type: 'photo',
-//   orientation: 'horizontal',
-//   safesearch: 'true',
-// };
 
 export default class Gallery {
   constructor() {
@@ -52,3 +45,12 @@ export default class Gallery {
     this.searchQuery = newQuery;
   }
 }
+
+// const axios = require('axios').default;
+// axios.defaults.baseURL = 'https://pixabay.com/api';
+// axios.defaults.params = {
+//   key: API_KEY,
+//   image_type: 'photo',
+//   orientation: 'horizontal',
+//   safesearch: 'true',
+// };
