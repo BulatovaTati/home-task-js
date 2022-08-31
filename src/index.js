@@ -1,5 +1,4 @@
 import { refreshSimplelightbox } from './js/dom/simpleLightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 import {
   onSuccessSearch,
   onEndSearchPic,
@@ -45,8 +44,9 @@ async function apiRequest() {
     const res = await NewGallery.fetchPictures();
     const resFin = await res.hits;
 
+    resFin.length === 0 ? onErrorSearch() : onSuccessSearch(res);
+
     domMarkup(resFin);
-    onSuccessSearch(res);
     NewGallery.incrementPage();
     refreshSimplelightbox();
 
@@ -81,13 +81,8 @@ async function dd() {
   const res = await NewGallery.fetchPictures();
   const resFin = await res.hits;
 
-  if (resFin.length === 0) {
-    return onErrorSearch();
-  }
-
   domMarkup(resFin);
   NewGallery.incrementPage();
-
   smoothScrolling();
   return resFin;
 }
