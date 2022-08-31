@@ -60,50 +60,18 @@ async function apiRequest() {
   }
 }
 
-// readMore.addEventListener('click', {});
-
-import InfiniteScroll from 'infinite-scroll';
-
-// var unsplashID =
-//   '9ad80b14098bcead9c7de952435e937cc3723ae61084ba8e729adb642daf0251';
-
-const infScroll = new InfiniteScroll('.gallery', {
-  responseType: 'text',
-  history: false,
-  path() {
-    return `https://newsapi.org/v2/everything?q=bitcoin&apiKey=bb47a995514a49758140b073ef1103f5`;
-  },
-});
-
-infScroll.loadNextPage();
-
-infScroll.on('load', (response, path) => {
-  console.log(JSON.parse(response));
-
-  // тут по шаблну сделали строку с тегами
-  // потом кинули в фрагмент
-  // фрагмент передали в infScroll.appendItems(фоагмент)
-});
-
-// const markup = '<p>qweqweqwe</p>';
-// const fragment = new DocumentFragment();
-// const d = document.createElement('div');
-// fragment.innerHTML = markup;
-// console.log(fragment);
-
-const onEntry = entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && NewGallery.query !== '') {
-      // console.log('Пора грузить еще статьи' + Date.now());
-      NewGallery.fetchPictures().then(articles => {
-        markupGallery(articles);
-        NewGallery.incrementPage();
-      });
+window.addEventListener('scroll', onScroll);
+async function onScroll() {
+  if (
+    document.documentElement.scrollHeight -
+      document.documentElement.scrollTop <=
+    document.documentElement.clientHeight + 1
+  ) {
+    NewGallery.incrementPage();
+    try {
+      apiRequest();
+    } catch (error) {
+      console.log(error);
     }
-  });
-};
-const sentinel = document.querySelector('#sentinel');
-const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '150px',
-});
-observer.observe(sentinel);
+  }
+}
