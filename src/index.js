@@ -10,11 +10,11 @@ import './css/styles.scss';
 // Styles <<<<<<<=
 
 import { refs } from './js/dom/refs';
-const { form } = refs;
+const { form, gallery, readMore } = refs;
 
-import { markupGallery, resetDomMarkup, domMarkup } from './js/dom/markup';
+import { markupGallery, resetDomMarkup } from './js/dom/markup';
 import Gallery from './js/api/fetch';
-import smoothScrolling from './js/dom/smoothScrolling';
+import { smoothScrolling } from './js/dom/smoothScrolling';
 //Imports <<<<<<=
 
 const NewGallery = new Gallery();
@@ -33,13 +33,11 @@ function onSubmitForm(evt) {
   NewGallery.resetPage();
   resetDomMarkup();
   apiRequest();
-  evt.target.reset();
 }
 
 async function apiRequest() {
   try {
     const res = await NewGallery.fetchPictures();
-    console.log('res: ', res);
 
     const resFin = await res.hits;
     console.log('resFin: ', resFin);
@@ -47,12 +45,13 @@ async function apiRequest() {
     if (resFin.length === 0) {
       return onErrorSearch();
     }
-    domMarkup(markupGallery, resFin);
-    onSuccessSearch(res);
 
+    domMarkup(resFin);
+    onSuccessSearch(res);
+    NewGallery.incrementPage();
     refreshSimplelightbox();
 
-    if (res.totalHits === NewGallery.page - 1) {
+    if (res.totalHits === NewGallery.decrementPage) {
       return onEndSearchPic();
     }
   } catch (error) {
@@ -60,19 +59,46 @@ async function apiRequest() {
   }
 }
 
-window.addEventListener('scroll', smoothScrollPage);
-
-async function smoothScrollPage() {
-  if (
-    document.documentElement.scrollHeight -
-      document.documentElement.scrollTop <=
-    document.documentElement.clientHeight + 1
-  ) {
-    NewGallery.incrementPage();
-    try {
-      apiRequest();
-    } catch (error) {
-      console.log('Line 77', error);
-    }
-  }
+function domMarkup(resFin) {
+  gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
 }
+
+const onEntry = entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && NewGallery.query !== '') {
+      apiRequest();
+      smoothScrolling();
+    }
+  });
+};
+
+const observer = new IntersectionObserver(onEntry, {
+  rootMargin: '100px',
+});
+observer.observe(readMore);
+
+// function onLoarmOre() {
+//   NewGallery.fetchPictures()
+//     .then(data => {
+//       console.log(data);
+//       refreshSimplelightbox();
+//       smoothScrolling();
+//     })
+//     .catch(console.log);
+// }
+
+// window.addEventListener('scroll', smoothScrollPage);
+
+// async function smoothScrollPage() {
+//   if (
+//     document.documentElement.scrollHeight -
+//       document.documentElement.scrollTop <=
+//     document.documentElement.clientHeight + 1
+//   ) {
+//     try {
+//       apiRequest();
+//     } catch (error) {
+//       console.log('Line 77', error);
+//     }
+//   }
+// }

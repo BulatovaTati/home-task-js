@@ -46,7 +46,4 @@ function resetDomMarkup() {
   gallery.innerHTML = '';
 }
 
-function domMarkup(callback, param) {
-  gallery.insertAdjacentHTML('beforeend', callback(param));
-}
-export { markupGallery, resetDomMarkup, domMarkup };
+export { markupGallery, resetDomMarkup };
