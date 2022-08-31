@@ -10,9 +10,9 @@ import './css/styles.scss';
 // Styles <<<<<<<=
 
 import { refs } from './js/dom/refs';
-const { gallery, form, readMore } = refs;
+const { gallery, form } = refs;
 
-import { markupGallery, resetDomMarkup } from './js/dom/markup';
+import { markupGallery, resetDomMarkup, domMarkup } from './js/dom/markup';
 import Gallery from './js/api/fetch';
 import smoothScrolling from './js/dom/smoothScrolling';
 //Imports <<<<<<=
@@ -29,6 +29,7 @@ function onSubmitForm(evt) {
   if (NewGallery.query === '') {
     return onInfoSearch();
   }
+
   NewGallery.resetPage();
   resetDomMarkup();
   apiRequest();
@@ -47,8 +48,8 @@ async function apiRequest() {
     if (resFin.length === 0) {
       return onErrorSearch();
     }
+    domMarkup(markupGallery, resFin);
 
-    gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
     onSuccessSearch(res);
     refreshSimplelightbox();
 
@@ -60,8 +61,8 @@ async function apiRequest() {
   }
 }
 
-window.addEventListener('scroll', onScroll);
-async function onScroll() {
+window.addEventListener('scroll', smoothScrollPage);
+async function smoothScrollPage() {
   if (
     document.documentElement.scrollHeight -
       document.documentElement.scrollTop <=

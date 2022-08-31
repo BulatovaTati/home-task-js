@@ -9,6 +9,7 @@ export function smoothScrolling() {
   });
 }
 
+// Arrow
 const buttonToTop = document.querySelector('.scroll-to-top');
 
 buttonToTop.addEventListener('click', () => {
