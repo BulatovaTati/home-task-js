@@ -46,15 +46,14 @@ async function apiRequest() {
     const res = await NewGallery.fetchPictures();
     const resFin = await res.hits;
 
-    resFin.length === 0 ? onErrorSearch() : onSuccessSearch(res);
+    if (resFin.length === 0) {
+      return onErrorSearch();
+    }
 
     domMarkup(resFin);
+    onSuccessSearch(res);
     NewGallery.incrementPage();
     refreshSimplelightbox();
-
-    if (res.totalHits === NewGallery.decrementPage) {
-      return onEndSearchPic();
-    }
   } catch (error) {
     console.log('Line 60', error);
   }
@@ -78,6 +77,10 @@ observer.observe(readmore);
 async function apiScroll() {
   const res = await NewGallery.fetchPictures();
   const resFin = await res.hits;
+
+  if (resFin.length === 0) {
+    return onEndSearchPic();
+  }
 
   domMarkup(resFin);
   NewGallery.incrementPage();
