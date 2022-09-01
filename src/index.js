@@ -28,8 +28,9 @@ function domMarkup(resFin) {
   gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
 }
 
-function onSubmitForm(evt) {
+async function onSubmitForm(evt) {
   evt.preventDefault();
+
   NewGallery.query = evt.currentTarget.searchQuery.value.trim();
 
   if (NewGallery.query === '') {
@@ -38,10 +39,7 @@ function onSubmitForm(evt) {
 
   NewGallery.resetPage();
   resetDomMarkup();
-  apiRequest();
-}
 
-async function apiRequest() {
   try {
     const res = await NewGallery.fetchPictures();
     const resFin = await res.hits;
@@ -57,7 +55,26 @@ async function apiRequest() {
   } catch (error) {
     console.log('Line 60', error);
   }
+  // apiRequest();
 }
+
+// async function apiRequest() {
+//   try {
+//     const res = await NewGallery.fetchPictures();
+//     const resFin = await res.hits;
+
+//     if (resFin.length === 0) {
+//       return onErrorSearch();
+//     }
+
+//     domMarkup(resFin);
+//     onSuccessSearch(res);
+//     NewGallery.incrementPage();
+//     refreshSimplelightbox();
+//   } catch (error) {
+//     console.log('Line 60', error);
+//   }
+// }
 
 // scroll
 const onEntry = entries => {
@@ -69,15 +86,21 @@ const onEntry = entries => {
 };
 
 const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '100px',
+  rootMargin: '200px',
 });
 
 observer.observe(readmore);
 
 async function apiScroll() {
   const res = await NewGallery.fetchPictures();
-  const resFin = await res.hits;
 
+  const totalHits = Math.ceil(res.totalHits / NewGallery.per_page);
+
+  if (NewGallery.page >= totalHits) {
+    observer.unobserve(readmore);
+  }
+
+  const resFin = await res.hits;
   if (resFin.length === 0) {
     return onEndSearchPic();
   }
@@ -89,16 +112,6 @@ async function apiScroll() {
 
   return resFin;
 }
-
-// function onLoarmOre() {
-//   NewGallery.fetchPictures()
-//     .then(data => {
-//       console.log(data);
-//       refreshSimplelightbox();
-//       smoothScrolling();
-//     })
-//     .catch(console.log);
-// }
 
 // window.addEventListener('scroll', smoothScrollPage);
 
@@ -114,4 +127,3 @@ async function apiScroll() {
 //       console.log('Line 77', error);
 //     }
 //   }
-// }
