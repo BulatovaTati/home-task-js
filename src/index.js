@@ -40,6 +40,10 @@ async function onSubmitForm(evt) {
   NewGallery.resetPage();
   resetDomMarkup();
 
+  apiRequest();
+}
+
+async function apiRequest() {
   try {
     const res = await NewGallery.fetchPictures();
     const resFin = await res.hits;
@@ -55,26 +59,7 @@ async function onSubmitForm(evt) {
   } catch (error) {
     console.log('Line 60', error);
   }
-  // apiRequest();
 }
-
-// async function apiRequest() {
-//   try {
-//     const res = await NewGallery.fetchPictures();
-//     const resFin = await res.hits;
-
-//     if (resFin.length === 0) {
-//       return onErrorSearch();
-//     }
-
-//     domMarkup(resFin);
-//     onSuccessSearch(res);
-//     NewGallery.incrementPage();
-//     refreshSimplelightbox();
-//   } catch (error) {
-//     console.log('Line 60', error);
-//   }
-// }
 
 // scroll
 const onEntry = entries => {
@@ -101,6 +86,7 @@ async function apiScroll() {
   }
 
   const resFin = await res.hits;
+  console.log('resFin: ', resFin);
   if (resFin.length === 0) {
     return onEndSearchPic();
   }
