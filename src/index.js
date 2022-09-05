@@ -41,8 +41,8 @@ const observer = new IntersectionObserver((entries, observer) => {
         domMarkup(res.hits);
         refreshSimplelightbox();
         smoothScrolling();
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log('line 45', error);
       }
     }
   });
