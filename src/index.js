@@ -32,14 +32,13 @@ const observer = new IntersectionObserver((entries, observer) => {
 
       try {
         const res = await NewGallery.fetchPictures();
-        const resFin = await res.hits;
 
-        if (NewGallery.page >= resFin) {
+        if (NewGallery.page >= res.hits) {
           observer.unobserve(readmore);
           return onEndSearchPic();
         }
 
-        domMarkup(resFin);
+        domMarkup(res.hits);
         refreshSimplelightbox();
         smoothScrolling();
       } catch (err) {
@@ -68,13 +67,12 @@ async function onSubmitForm(evt) {
 
   try {
     const res = await NewGallery.fetchPictures();
-    const resFin = await res.hits;
 
-    if (resFin.length === 0) {
+    if (res.hits.length === 0) {
       return onErrorSearch();
     }
 
-    const markup = markupGallery(resFin);
+    const markup = markupGallery(res.hits);
     gallery.innerHTML = markup;
     onSuccessSearch(res);
 
