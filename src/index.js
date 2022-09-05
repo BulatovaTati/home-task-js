@@ -19,14 +19,40 @@ import { smoothScrolling } from './js/dom/smoothScrolling';
 import arrow from './js/dom/arrow';
 //Imports <<<<<<=
 
-const NewGallery = new Gallery();
-// Class <<<<=
+const options = {
+  root: null,
+  rootMargin: '150px',
+  threshold: 1,
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(async entry => {
+    if (entry.isIntersecting && entry.intersectionRect.bottom > 300) {
+      NewGallery.incrementPage();
+
+      try {
+        const res = await NewGallery.fetchPictures();
+        const resFin = await res.hits;
+
+        if (NewGallery.page >= resFin) {
+          observer.unobserve(readmore);
+          return onEndSearchPic();
+        }
+
+        domMarkup(resFin);
+        refreshSimplelightbox();
+        smoothScrolling();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  });
+}, options);
 
 form.addEventListener('submit', onSubmitForm);
 
-function domMarkup(resFin) {
-  gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
-}
+const NewGallery = new Gallery();
+// Class <<<<=
 
 async function onSubmitForm(evt) {
   evt.preventDefault();
@@ -40,10 +66,6 @@ async function onSubmitForm(evt) {
   NewGallery.resetPage();
   resetDomMarkup();
 
-  apiRequest();
-}
-
-async function apiRequest() {
   try {
     const res = await NewGallery.fetchPictures();
     const resFin = await res.hits;
@@ -52,51 +74,20 @@ async function apiRequest() {
       return onErrorSearch();
     }
 
-    domMarkup(resFin);
+    const markup = markupGallery(resFin);
+    gallery.innerHTML = markup;
     onSuccessSearch(res);
-    NewGallery.incrementPage();
+
     refreshSimplelightbox();
+
+    observer.observe(readmore);
   } catch (error) {
     console.log('Line 60', error);
   }
 }
 
-// scroll
-const onEntry = entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && NewGallery.query !== '') {
-      apiScroll();
-    }
-  });
-};
-
-const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '200px',
-});
-
-observer.observe(readmore);
-
-async function apiScroll() {
-  const res = await NewGallery.fetchPictures();
-
-  const totalHits = Math.ceil(res.totalHits / NewGallery.per_page);
-
-  if (NewGallery.page >= totalHits) {
-    observer.unobserve(readmore);
-  }
-
-  const resFin = await res.hits;
-  console.log('resFin: ', resFin);
-  if (resFin.length === 0) {
-    return onEndSearchPic();
-  }
-
-  domMarkup(resFin);
-  NewGallery.incrementPage();
-  refreshSimplelightbox();
-  smoothScrolling();
-
-  return resFin;
+function domMarkup(resFin) {
+  gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
 }
 
 // window.addEventListener('scroll', smoothScrollPage);

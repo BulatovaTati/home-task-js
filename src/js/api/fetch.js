@@ -5,13 +5,13 @@ const BASE_URL = 'https://pixabay.com/api/';
 
 export default class Gallery {
   constructor() {
-    this.searchQuery = '';
     this.page = 1;
+    this.searchQuery = '';
     this.per_page = 40;
   }
 
   async fetchPictures() {
-    const res = await axios.get(BASE_URL, {
+    const url = await axios.get(BASE_URL, {
       params: {
         key: `${API_KEY}`,
         q: this.searchQuery,
@@ -23,14 +23,10 @@ export default class Gallery {
       },
     });
 
-    return res.data;
+    return url.data;
   }
   incrementPage() {
     this.page += 1;
-  }
-
-  decrementPage() {
-    this.page -= 1;
   }
 
   resetPage() {
