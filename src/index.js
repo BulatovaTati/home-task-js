@@ -5,7 +5,6 @@ import {
   onErrorSearch,
   onInfoSearch,
 } from './js/dom/notify';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import './css/styles.scss';
 // Styles <<<<<<<=
