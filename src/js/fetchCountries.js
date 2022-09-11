@@ -2,9 +2,7 @@ const BASE_URL = 'https://restcountries.com/v3.1/name';
 const properties = 'fields=name,capital,population,flags,languages';
 
 export default class Countries {
-  constructor() {
-    this.searchCountry = '';
-  }
+  searchCountry = '';
 
   fetchCountries() {
     return fetch(`${BASE_URL}/${this.searchCountry}?${properties}`).then(
