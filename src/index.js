@@ -80,3 +80,5 @@ async function onLoadMore() {
 function domMarkup(resFin) {
   gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
 }
+
+import tasks from './js/tasks';

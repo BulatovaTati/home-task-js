@@ -1,83 +1,81 @@
-// // // Напиши клас Client який створює об'єкт /
-// // /з властивостями login email
-// //   / / Оголоси приватні властивості #login #email,
-// // //доступ до яких зроби через геттер та сеттер login email
+// Напиши клас Client який створює об'єкт /
+// /з властивостями login email
+//   / / Оголоси приватні властивості #login #email,
+//доступ до яких зроби через геттер та сеттер login emai
+// class Client {
+//   #login;
+//   #email;
+//   constructor({ login, email }) {
+//     this.#email = email;
+//     this.#login = login;
+//   }
 
-// // class Client {
-// //   #login;
-// //   #email;
-// //   constructor({ login, email }) {
-// //     this.#email = email;
-// //     this.#login = login;
-// //   }
+//   get login() {
+//     return this.#login; //   }
+//   set login(NewLogin) {
+//     this.#login = NewLogin;
+//   } //   get email() {
+//     return this.#email;
+//   }
+//   set email(NewEmail) {
+//     this.#email = NewEmail;
+//   }
+// }
+// const NewClient = new Client({ login: 'fhfhhfh', email: 'dffkjhif' })
+// console.log('NewClient: ', NewClient)
+// console.log(NewClient.email)
+// console.log(NewClient.login)
+// console.log((NewClient.email = 'dd12'))
+// console.log(NewClient.email);
 
-// //   get login() {
-// //     return this.#login;
-// //   }
-// //   set login(NewLogin) {
-// //     this.#login = NewLogin;
-// //   }
+//Напиши клас Notes, який управляє колекцією нотаток у
+//властивості items.
+//Нотатка - це об'єкт із властивостями text priority
+//Додай класу статичну властивість Priopity,
+//у якій зберігатиметься об'єкт із пріоритетами.
+//Додай методи addNote(note), removeNote(text)
+//updatePriority(text, newPriority)
 
-// //   get email() {
-// //     return this.#email;
-// //   }
-// //   set email(NewEmail) {
-// //     this.#email = NewEmail;
-// //   }
-// // }
+// class Notes {
+//   static Priopity = [];
+//   constructor({ text, priority }) {
+//     this.items = text;
+//     this.priopity = priority;
+//   }
+//   addNote(note) {
+//     this.items.push(note); //   } //   updatePriority(text, newPriority) {} // }
+// const note = new Notes({ text: 'jfdhfhdsfhasifhihsaf', priopity: [] });
 
-// // const NewClient = new Client({ login: 'fhfhhfh', email: 'dffkjhif' });
-// // console.log('NewClient: ', NewClient);
-// // console.log(NewClient.email);
-// // console.log(NewClient.login);
-// // console.log((NewClient.email = 'dd12'));
-// // console.log(NewClient.email);
+// note.updatePriority({ text: '111', newPriority: 'base1' });
+// note.addNote({ text: '222', newPriority: 'base2' });
+// note.addNote({ text: '333', newPriority: 'base3' });
+// note.addNote('hshfusdhf');
+// console.log('note: ', note);
 
-// //Напиши клас Notes, який управляє колекцією нотаток у
-// //властивості items.
-// //Нотатка - це об'єкт із властивостями text priority
-// //Додай класу статичну властивість Priopity,
-// //у якій зберігатиметься об'єкт із пріоритетами.
-// //Додай методи addNote(note), removeNote(text)
-// //updatePriority(text, newPriority)
+// 09/09/2022 test task
+// Делегування подій
+// 1. Коли користувач клікає на будь-яку комірку
+// із таблиці, потрібно її зробити активною - добавити клас.active
+// 3. В кожному рядку кожній третій комірці задавати клас .active-third
+// 2. Коли користувач клікає на іншу комірку, вона робиться активною, а всі інші стають неактивними
+// 3. Після перезавантаження сторінки активна комірка зберігається
 
-// // class Notes {
-// //   static Priopity = [];
-// //   constructor({ text, priority }) {
-// //     this.items = text;
-// //     this.priopity = priority;
-// //   }
-// //   addNote(note) {
-// //     this.items.push(note);
-// //   }
-// //   updatePriority(text, newPriority) {}
-// // }
+// const board = document.querySelector('.board');
+// console.log('board: ', board);
 
-// // const note = new Notes({ text: 'jfdhfhdsfhasifhihsaf', priopity: [] });
+// board.addEventListener('click', evt => {
+//   console.dir(evt.currentTarget);
+//   if (evt.target.tagName === 'TD') {
+//     evt.target.classList.toggle('active');
+//   }
+// });
 
-// // note.updatePriority({ text: '111', newPriority: 'base1' });
-// // note.addNote({ text: '222', newPriority: 'base2' });
-// // note.addNote({ text: '333', newPriority: 'base3' });
-// // note.addNote('hshfusdhf');
-// // console.log('note: ', note);
+// ! CODEWARS
 
-// // 09/09/2022 test task
-// // Делегування подій
-// // 1. Коли користувач клікає на будь-яку комірку
-// // із таблиці, потрібно її зробити активною - добавити клас.active
-// // 3. В кожному рядку кожній третій комірці задавати клас .active-third
-// // 2. Коли користувач клікає на іншу комірку, вона робиться активною, а всі інші стають неактивними
-// // 3. Після перезавантаження сторінки активна комірка зберігається
-
-// // const board = document.querySelector('.board');
-// // console.log('board: ', board);
-
-// // board.addEventListener('click', evt => {
-// //   console.dir(evt.currentTarget);
-// //   if (evt.target.tagName === 'TD') {
-// //     evt.target.classList.toggle('active');
-// //   }
-// // });
+// ? An isogram is a word that has no repeating letters, consecutive or non-consecutive.
+// ? Implement a function that determines whether a string
+// ? that contains only letters is an isogram.
+// ? Assume the empty string is an isogram.Ignore letter case.
 
 // function isIsogram(str) {
 //   const newStr = str.toLowerCase();
@@ -93,13 +91,27 @@
 //   return true;
 // }
 
+function isIsogram(str) {
+  return new Set(str.toLowerCase()).size == str.length;
+}
+
+// function isIsogram(str) {
+//   return !str.match(/([a-z]).*\1/i);
+// }
+
 // console.log(isIsogram('absa'));
-// isIsogram('isogram');
+// console.log(isIsogram('abc'));
 // console.log(isIsogram('isogram'));
 
+// ? You are given an array(which will have a length of at least 3,
+// ? but could be very large) containing integers.
+// ? The array is either entirely comprised of odd
+// ? integers or entirely comprised of even integers except
+// ? for a single integer N.Write a method that takes the array
+// ? as an argument and returns this "outlier" N
+
 // function findOutlier(integers) {
-//   return [...integers].filter(even).length >= 2
-//     ? integers.find(odd)
+// return [...integers].filter(even).length >= 2 ? integers.find(odd)
 //     : integers.find(even);
 // }
 // function even(num) {
@@ -109,33 +121,45 @@
 //   return !even(num);
 // }
 
-// // or
-// function findOutlier(integers) {
-//   const even = integers.filter(int => int % 2 === 0);
-//   const odd = integers.filter(int => int % 2 !== 0);
-//   return even.length === 1 ? even[0] : odd[0];
-// }
-// findOutlier([0, 2, 2, 2, 13, 2, 2, 2, 2, 2, 2, 2, 2]);
-// findOutlier([0, 1, 2, 13, 15]);
-// findOutlier([2, 6]);
+function findOutlier(integers) {
+  const even = integers.filter(int => int % 2 === 0);
+  const odd = integers.filter(int => int % 2 !== 0);
+  return even.length === 1 ? even[0] : odd[0];
+}
 
-// // /////
-// function validatePIN(str) {
-//   if (str.length !== 4 && str.length !== 6) {
-//     return false;
-//   }
-//   for (let i = 0; i < str.length; i++) {
-//     if (str[i] < '0' || str[i] > '9') {
-//       return false;
-//     }
-//   }
-//   return true;
+// console.log(findOutlier([0, 2, 2, 2, 13, 2, 2, 2, 2, 2, 2, 2, 2]));
+// console.log(findOutlier([0, 3, 13, 15, 2]));
+// console.log(findOutlier([2, 6]));
+
+// ? ATM machines allow 4 or 6 digit PIN codes and
+// ? PIN codes cannot contain anything but exactly 4 digits or exactly 6 digits.
+// ? If the function is passed a valid PIN string, return true, else return false.
+
+function validatePIN(str) {
+  if (str.length !== 4 && str.length !== 6) {
+    return false;
+  }
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] < '0' || str[i] > '9') {
+      return false;
+    }
+  }
+  return true;
+}
+// function validatePIN(pin) {
+//   return /^(\d{4}|\d{6})$/.test(pin);
 // }
-// validatePIN('098765');
-// validatePIN('1234567');
-// validatePIN('123');
-// validatePIN('123a');
-// validatePIN('123-');
+// console.log(validatePIN('098765'));
+// console.log(validatePIN(''));
+// console.log(validatePIN('123-'));
+// console.log(validatePIN('123a'));
+// console.log(validatePIN('123'));
+
+// ? An isogram is a word that ?? has no repeating letters,
+// ? consecutive or non - consecutive.Implement a function
+// ? that determines whether a string that contains only
+// ? letters is an isogram.Assume the empty string is an isogram.
+// ? Ignore letter case.
 
 // function isPangram(string) {
 //   const strArr = string.toLowerCase();
@@ -154,18 +178,17 @@
 //     return string.indexOf(x) !== -1;
 //   });
 // }
-// function isPangram(string) {
-//   return 'abcdefghijklmnopqrstuvwxyz'
-//     .split('')
-//     .every(x => string.toLowerCase().includes(x));
-// }
+function isPangram(string) {
+  return 'abcdefghijklmnopqrstuvwxyz'
+    .split('')
+    .every(x => string.toLowerCase().includes(x));
+}
 // function isPangram(string) {
 //   return (string.match(/([a-z])(?!.*\1)/gi) || []).length === 26;
 // }
-// isPangram('The quick brown fox jumps over the lazy dog.');
-// // console.log(isPangram('The quick brown fox jumps over the lazy dog.'));
-// isPangram('This is not a pangram.');
-// // console.log(isPangram('This is not a pangram.'));
+
+// console.log(isPangram('The quick brown fox jumps over the lazy dog.'));
+// console.log(isPangram('This is not a pangram.'));
 
 // Метод charAt() возвращает указанный символ из строки.
 
@@ -175,18 +198,18 @@
 //     .map(elem => elem[0].toUpperCase() + elem.slice(1))
 //     .join(' ');
 
-//   // or
-//   // .map(elem => elem.replace(elem[0], elem[0].toUpperCase()))
-//   // str.split(' ')
-//   //   .map(function (word) {
-//   //     return word.charAt(0).toUpperCase() + word.slice(1);
-//   //   })
-//   //   .join(' ');
+// .map(elem => elem.replace(elem[0], elem[0].toUpperCase()))
+// str.split(' ')
+//   .map(function (word) {
+//     return word.charAt(0).toUpperCase() + word.slice(1);
+//   })
+//   .join(' ');
 // }
 
 // Show("How can mirrors be real if our eyes aren't real");
 
-// People in bus, in /out
+// ?  People in bus, in /out/
+
 // let number = function (busStops) {
 //   let peopleIn = 0;
 //   let peopleOut = 0;
@@ -210,21 +233,26 @@ const number = busStops => {
   }, 0);
 };
 
-number([
-  [10, 0],
-  [3, 5],
-  [5, 8],
-]);
+// console.log(
+//   number([
+//     [10, 0],
+//     [3, 5],
+//     [5, 8],
+//   ])
+// );
 
-number([
-  [3, 0],
-  [9, 1],
-  [4, 10],
-  [12, 2],
-  [6, 1],
-  [7, 10],
-]);
+// console.log(
+//   number([
+//     [3, 0],
+//     [9, 1],
+//     [4, 10],
+//     [12, 2],
+//     [6, 1],
+//     [7, 10],
+//   ])
+// );
 
+// ! https://www.codewars.com/kata/550f22f4d758534c1100025a
 // function dirReduc(arr) {
 //   const opposites = {
 //     NORTH: 'SOUTH',
@@ -253,16 +281,17 @@ number([
 //   }, []);
 // }
 
+// ? function anagrams(word, words) {
+// ? use map then use a callback function that checks
+// ? if all of the letters in word exist in words
+// ? include a check for length
+
 // function anagrams(word, words) {
 //   word = word.split('').join('');
 
 //   return words.filter(el => word == el.split('').sort().join(''));
 // }
 
-// function anagrams(word, words) {
-//   //use map then use a callback function that checks
-//   // if all of the letters in word exist in words
-//   //include a check for length
 //   return words.filter(elem => {
 //     if (elem.length === word.length) {
 //       if (
@@ -289,6 +318,11 @@ function anagrams(word, words) {
 // console.log(anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']));
 // console.log(anagrams('laser', ['lazing', 'lazy', 'lacer']));
 
+// ? In this kata you are required to, given a string,
+// ? replace every letter with its position in the alphabet.
+// ? If anything in the text isn't a letter, ignore it and don't return it.
+// ? "a" = 1, "b" = 2,
+
 // function alphabetPosition(text) {
 //   let result = '';
 //   for (let i = 0; i < text.length; i++) {
@@ -301,6 +335,7 @@ function anagrams(word, words) {
 // function alphabetPosition(text) {
 //   return text.split('').filter(v=>/[a-zA-Z]/.test(v)).map(v=>v.toLowerCase().charCodeAt(0)-96).join(' ');
 // }
+
 function alphabetPosition(text) {
   return text
     .toUpperCase()
@@ -308,26 +343,20 @@ function alphabetPosition(text) {
     .map(elem => elem.charCodeAt() - 64)
     .join(' ');
 }
+
 // console.log(alphabetPosition("The sunset sets at twelve o'clock."));
 // console.log(alphabetPosition('The narwhal bacons at midnight.'));
 
-// function order(words){
-//   return words.split(' ').sort(function(a, b){
-//       return a.match(/\d/) - b.match(/\d/);
-//    }).join(' ');
-// }
+// ? Your task is to sort a given string.
+// ? Each word in the string will contain a single number.
+// ? This number is the position the word should have in the result.
+// ? Note: Numbers can be from 1 to 9. So 1 will be the first word (not 0).
+// ? If the input string is empty, return an empty string.
+// ? The words in the input String will only contain valid consecutive numbers.
 
-// function order(words){
-//   if (words.length == 0){return words}
-//   let wordsarr = words.split(' ');
-//   let indarr = words.match(/\d/g);
-//   let neword = [];
-//   for (let i=1;i<=indarr.length;i++){
-//     let ind = indarr.indexOf(i.toString())
-//     neword.push(wordsarr[ind])
-//   }
-//   return neword.join(' ')
-// }
+// ? "is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+// ? "4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
+
 function order(words = '') {
   const copyStr = words;
 
@@ -338,9 +367,15 @@ function order(words = '') {
     })
     .join(' ');
 }
-// принять ЛЮБОЙ ОДИН символ в диапазоне, например,
-// [0 - 9] соответствует любой цифре;[A - Za - z]
-// соответствует любым прописным или строчным буквам.
+
+// function order(words){
+//   return words.split(' ').sort(function(a, b){
+//       return a.match(/\d/) - b.match(/\d/);
+//    }).join(' ');
+// }
+// ! принять ЛЮБОЙ ОДИН символ в диапазоне, например,
+// ! [0 - 9] соответствует любой цифре;[A - Za - z]
+// ! соответствует любым прописным или строчным буквам.
 
 // console.log(order('is2 Thi1s T4est 3a'));
 // console.log(order('4of Fo1r pe6ople g3ood th5e the2'));
