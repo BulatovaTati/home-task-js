@@ -380,3 +380,158 @@ function order(words = '') {
 // console.log(order('is2 Thi1s T4est 3a'));
 // console.log(order('4of Fo1r pe6ople g3ood th5e the2'));
 // console.log(order(''));
+
+// ? Отримати дані з API та вивести їх на сторінку
+// ? http://universities.hipolabs.com/search?country=Ukraine
+// ? http://universities.hipolabs.com/search?country=United+States
+// ? https://github.com/Hipo/university-domains-list
+// function updateMarkup(data) {
+//   ref.innerHTML = data;
+// }
+(async () => {
+  try {
+    const resp = await fetch(
+      'http://universities.hipolabs.com/search?country=Ukraine'
+    );
+
+    const data = await resp.json();
+    // updateMarkup(data[0].name);
+  } catch (error) {
+    console.log('ERROR', error.message);
+  }
+})();
+
+// ? Отримати дані з API і вивести їх на сторінку
+// ? https://dog.ceo/dog-api/
+
+// Отримати дані з API і вивести їх на сторінку
+// https://randomuser.me/
+
+// const ref = document.querySelector('.list');
+
+// function updateMarkup(user) {
+//   const name = user.name.first;
+//   const img = user.picture.medium;
+//   const email = user.email;
+
+//   ref.innerHTML = `<img src="${img}" alt="img"/>
+//     <p>${name}</p>
+//     <p>${email}</p>`;
+// }
+
+// ? (async () => {
+//   try {
+//     const resp = await fetch('https://randoxmuser.me/api/ ');
+//     const data = await resp.json();
+//     const results = data.results;
+
+//     updateMarkup(results[0]);
+//   } catch (error) {
+//     console.log('ERROR', error.message);
+//   }
+// })();
+
+// ! <li></li>
+// ! <a></a>
+// ! <div></div>
+// ! <p></p>
+// ! <img src="" alt=""/>
+
+// const ref = document.querySelector('.list');
+// const URL = 'http://colormind.io/api/';
+// // Отримати дані з API та вивести їх на сторінку
+
+// (async () => {
+//   try {
+//     const resp = await fetch(URL, {
+//       method: 'POST',
+//       body: JSON.stringify({
+//         model: 'default',
+//       }),
+//     });
+//     const data = await resp.json();
+//     updateMarkup(data.result);
+//   } catch (error) {
+//     console.log('ERROR', error.message);
+//   }
+// })();
+
+// function updateMarkup(data) {
+//   const markup = data.map(
+//     item =>
+//       `<div style="background-color: rgb(${item})" class="item"></div>
+//     `
+//   );
+//   ref.innerHTML = markup.join('');
+// }
+
+// Отримати дані з API і вивести їх на сторінку
+//https://reqres.in/
+// const URL = 'https://reqres.in/api/users/2';
+
+// const ref = document.querySelector('.list');
+
+// (async () => {
+//   try {
+//     const resp = await fetch(URL, {
+//       method: 'put',
+//       body: JSON.stringify({
+//         name: 'Janet',
+//         job: 'Weaver',
+//       }),
+//     });
+
+//     const data = await resp.json();
+//     // console.log('data: ', data);
+
+//     // updateMarkup(data);
+//   } catch (error) {
+//     console.log('ERROR', error.message);
+//   }
+// })();
+
+// function updateMarkup(data) {
+//   const markup = data.map(
+//     item =>
+//       `<div class="item">${item}</div>
+//     `
+//   );
+//   ref.textContent = markup.join('');
+// }
+
+// Отримати дані з API і вивести їх на сторінку
+// https://deckofcardsapi.com/
+
+const URL = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
+
+const ref = document.querySelector('.list');
+
+(async () => {
+  try {
+    const resp = await fetch(URL);
+    const { deck_id } = await resp.json();
+
+    const info = await fetch(
+      `https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=2  `
+    );
+    const { cards } = await info.json();
+
+    updateMarkup(cards);
+  } catch (error) {
+    console.log('ERROR', error.message);
+  }
+})();
+
+function updateMarkup(data) {
+  const mark = data
+    .map(({ image, code }) => `<img src="${image}" alt="${code}"/>`)
+    .join('');
+
+  ref.innerHTML = mark;
+}
+
+// ДЗ
+// Отримати дані з API і вивести їх на сторінку. Добавити стилі.
+// https://openweathermap.org/api
+
+// https://nordicapis.com/how-to-build-an-api-driven-weather-app/
