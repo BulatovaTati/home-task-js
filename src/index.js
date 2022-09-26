@@ -86,18 +86,3 @@ async function onSubmitForm(evt) {
 function domMarkup(resFin) {
   gallery.insertAdjacentHTML('beforeend', markupGallery(resFin));
 }
-
-// window.addEventListener('scroll', smoothScrollPage);
-
-// async function smoothScrollPage() {
-//   if (
-//     document.documentElement.scrollHeight -
-//       document.documentElement.scrollTop <=
-//     document.documentElement.clientHeight + 1
-//   ) {
-//     try {
-//       apiRequest();
-//     } catch (error) {
-//       console.log('Line 77', error);
-//     }
-//   }
